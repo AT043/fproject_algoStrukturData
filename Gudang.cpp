@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int menuChoice, gudangChoice;
+string menuChoice, gudangChoice;
 
 void border(){
 	char x[2]="=";
@@ -52,8 +52,63 @@ int main(){
 		cout<<"pilih: ";
 		cin>>menuChoice;
 		system("cls");
+		
+		if(menuChoice=="1"){
+			int uname, passwd;
+				aksesGudangHeader();
+				cout<<"1. Login \n";
+				cout<<"2. Back \n";
+				border();
+				cout<<"pilih: ";
+				cin>>gudangChoice;
+				system("cls");
+				if(gudangChoice == "1"){
+					aksesGudangHeader();
+					cout<<"Username: ";
+					cin>>uname;
+					cout<<"\n";
+					cout<<"Password:";
+					cin>>passwd;
+					system("cls");
+					
+					aksesGudangHeader();
+					cout<<"Under Construction!\n";
+					border();
+					system("Pause");
+					system("cls");
+					back = true;
+					
+				} else if(gudangChoice == "2"){
+					back = true;
+				} else {
+					cout<<"Wrong Input!\n";
+					system("Pause");
+					back = true;
+				}
+		} else if(menuChoice=="2"){
+			cekBarangMasukHeader();
+			cout<<"Under Construction!\n";
+			system("Pause");
+			system("cls");
+			back = true;
+		} else if(menuChoice=="3"){
+			cekBarangKeluarHeader();
+			cout<<"Under Construction!\n";
+			system("Pause");
+			system("Pause");
+			system("cls");
+			back = true;
+		} else if(menuChoice=="4"){
+			cariBarangHeader();
+			cout<<"Under Construction!\n";
+			system("Pause");
+			system("cls");
+			back = true;
+		} else{
+			back = true;
+		}
 	
-		switch(menuChoice){
+		/*switch(menuChoice){
 			case 1:
 				int uname, passwd;
 				aksesGudangHeader();
@@ -111,7 +166,7 @@ int main(){
 				break;
 			default:
 				back = true;
-		}
+		}*/
 	} while(back == true);
 	
 }
