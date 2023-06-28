@@ -4,22 +4,24 @@ using namespace std;
 string menuChoice, gudangChoice;
 
 struct gudangA{
-	id_pengiriman;
-	nama_barang;
-	jenis_barang;
-	jumlah_barang;
-	waktu_tiba;
-	asal_barang;
-};
+	//id_pengiriman;
+	string nama_barang[1000];
+	string jenis_barang[1000];
+	int jumlah_barang[1000];
+	//waktu_tiba;
+	string asal_barang[1000];
+}; 
 
-struct gudangB{
+	gudangA gda;
+
+/*struct gudangB{
 	id_pengiriman;
 	nama_barang;
 	jenis_barang;
 	jumlah_barang;
 	waktu_tiba;
 	asal_barang;
-};
+}; gudangB gdb;
 
 struct gudangC{
 	id_pengiriman;
@@ -28,7 +30,7 @@ struct gudangC{
 	jumlah_barang;
 	waktu_tiba;
 	asal_barang;
-};
+}; gudangC gdc;*/
 
 void border(){
 	char x[2]="=";
@@ -131,8 +133,8 @@ int main(){
 					string gudangAChoice;
 					aksesGudangHeaderMenu();
 					cout<<"1. Cek Barang Gudang A\n";
-					cout<<"2. Tambah barang keluar\n";
-					cout<<"3. Tambah Barang Masuk\n";
+					cout<<"2. Tambah barang Masuk\n";
+					cout<<"3. Tambah Barang Keluar\n";
 					cout<<"4. Back\n";
 					border();
 					cout<<"Masukkan angka: ";
@@ -141,18 +143,29 @@ int main(){
 					system("cls");
 					if(gudangAChoice == "1"){
 						aksesGudangHeaderMenu();
-						cout<<"Under Construction!\n";
+						cout<<gda.nama_barang[0]<<endl;
+						cout<<gda.jenis_barang[0]<<endl;
+						cout<<gda.jumlah_barang[0]<<endl;
+						cout<<gda.asal_barang[0]<<endl;
 						border();
 						system("Pause");
 						system("cls");
-						mainBack = true;
+						gudangBack = true;
 					} else if(gudangAChoice == "2"){
 						aksesGudangHeaderMenu();
-						cout<<"Under Construction!\n";
+						cout<<"Nama Barang: ";
+						cin>>gda.nama_barang[0];
+						cout<<"\nJenis Barang: ";
+						cin>>gda.jenis_barang[0];
+						cout<<"\nJumlah Barang: ";
+						cin>>gda.jumlah_barang[0];
+						cout<<"\nAsal Barang: ";
+						cin>>gda.asal_barang[0];
+						cout<<"\n";
 						border();
 						system("Pause");
 						system("cls");
-						mainBack = true;
+						gudangBack = true;
 					} else if(gudangAChoice == "3"){
 						aksesGudangHeaderMenu();
 						cout<<"Under Construction!\n";
@@ -175,8 +188,8 @@ int main(){
 					string gudangBChoice;
 					aksesGudangHeaderMenu();
 					cout<<"1. Cek Barang Gudang B\n";
-					cout<<"2. Tambah barang keluar\n";
-					cout<<"3. Tambah Barang Masuk\n";
+					cout<<"2. Tambah barang Masuk\n";
+					cout<<"3. Tambah Barang Keluar\n";
 					cout<<"4. Back\n";
 					border();
 					cout<<"Masukkan angka: ";
@@ -219,8 +232,8 @@ int main(){
 					string gudangCChoice;
 					aksesGudangHeaderMenu();
 					cout<<"1. Cek Barang Gudang C\n";
-					cout<<"2. Tambah barang keluar\n";
-					cout<<"3. Tambah Barang Masuk\n";
+					cout<<"2. Tambah barang Masuk\n";
+					cout<<"3. Tambah Barang Keluar\n";
 					cout<<"4. Back\n";
 					border();
 					cout<<"Masukkan angka: ";
