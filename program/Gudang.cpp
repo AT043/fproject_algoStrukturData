@@ -2,12 +2,16 @@
 using namespace std;
 
 string menuChoice, gudangChoice;
+int nGdgA = 0;
 
 struct gudangA{
-	//id_pengiriman;
+	//kode_unit;
 	string nama_barang[1000];
-	string jenis_barang[1000];
-	int jumlah_barang[1000];
+	string bahan_barang[1000];
+	//string ukuran_barang[1000];
+	//int berat_barang[1000];
+	//string jenis_barang[1000];
+	long long jumlah_barang[1000];
 	//waktu_tiba;
 	string asal_barang[1000];
 }; 
@@ -74,10 +78,7 @@ int main(){
 		cout<<"Welcome di Gudang Bang!\n";
 		border();
 		cout<<"Perlu apa bang/kak? \n";
-		cout<<"1. Akses Gudang\n";
-		cout<<"2. Cek Barang Masuk\n";
-		cout<<"3. Cek barang Keluar\n";
-		cout<<"4. Cari Barang\n";
+		cout<<"1. Akses Gudang\n2. Cek Barang Masuk\n3. Cek barang Keluar\n4. Cari Barang\n";
 		border();
 		cout<<"Masukkan angka sesuai menu,\nmisal 2 untuk cek daftar barang masuk \n";
 		border();
@@ -121,10 +122,8 @@ int main(){
 			bool gudangBack;
 			do{
 				mainMenuHeader();
-				cout<<"1. Gudang A\n";
-				cout<<"2. Gudang B\n";
-				cout<<"3. Gudang C\n";
-				cout<<"4. Back\n";
+				cout<<nGdgA<<endl;
+				cout<<"1. Gudang A\n2. Gudang B\n3. Gudang C\n4. Back to Main Menu\n";
 				border();
 				cin>>gudangChoice;
 				border();
@@ -132,10 +131,7 @@ int main(){
 				if (gudangChoice == "1"){
 					string gudangAChoice;
 					aksesGudangHeaderMenu();
-					cout<<"1. Cek Barang Gudang A\n";
-					cout<<"2. Tambah barang Masuk\n";
-					cout<<"3. Tambah Barang Keluar\n";
-					cout<<"4. Back\n";
+					cout<<"1. Cek Barang Gudang A\n2. Tambah barang Masuk\n3. Tambah Barang Keluar\n4. Back to Akses Gudang\n5. Back to Main Menu\n";
 					border();
 					cout<<"Masukkan angka: ";
 					cin>>gudangAChoice;
@@ -143,29 +139,46 @@ int main(){
 					system("cls");
 					if(gudangAChoice == "1"){
 						aksesGudangHeaderMenu();
-						cout<<gda.nama_barang[0]<<endl;
-						cout<<gda.jenis_barang[0]<<endl;
-						cout<<gda.jumlah_barang[0]<<endl;
-						cout<<gda.asal_barang[0]<<endl;
+						for(int i=0; i<nGdgA; i++){
+							cout<<"\n";
+							cout<<"Nama Barang: "<<gda.nama_barang[i]<<endl;
+							cout<<"Bahan Barang: "<<gda.bahan_barang[i]<<endl;
+							cout<<"Jumlah Barang: "<<gda.jumlah_barang[i]<<" Unit"<<endl;
+							cout<<"Asal Barang: "<<gda.asal_barang[i]<<endl;
+							border();
+						}
+						
 						border();
 						system("Pause");
 						system("cls");
 						gudangBack = true;
 					} else if(gudangAChoice == "2"){
-						aksesGudangHeaderMenu();
-						cout<<"Nama Barang: ";
-						cin>>gda.nama_barang[0];
-						cout<<"\nJenis Barang: ";
-						cin>>gda.jenis_barang[0];
-						cout<<"\nJumlah Barang: ";
-						cin>>gda.jumlah_barang[0];
-						cout<<"\nAsal Barang: ";
-						cin>>gda.asal_barang[0];
-						cout<<"\n";
-						border();
-						system("Pause");
-						system("cls");
-						gudangBack = true;
+						int tambahBarangBack;
+						do{
+							aksesGudangHeaderMenu();
+							cout<<"Nama Barang: ";cin>>gda.nama_barang[nGdgA];
+							cout<<"\nBahan Barang: ";cin>>gda.bahan_barang[nGdgA];
+							cout<<"\nJumlah Barang: ";cin>>gda.jumlah_barang[nGdgA];
+							cout<<"\nAsal Barang: ";cin>>gda.asal_barang[nGdgA];
+							cout<<"\n";
+							border();
+							string tambahBarang;
+							cout<<"Tambah Barang Lagi?\n1. Ya  2. Tidak\n";border();cin>>tambahBarang;
+							if(tambahBarang=="1"){
+								system("cls");
+								tambahBarangBack = 1;
+							} else if(tambahBarang=="2"){
+								system("cls");
+								tambahBarangBack = 0;
+								gudangBack=true;
+							} else{
+								system("cls");
+								tambahBarangBack =0;
+								mainBack=true;
+							}
+						} while(tambahBarangBack == 1);
+							
+							nGdgA++;
 					} else if(gudangAChoice == "3"){
 						aksesGudangHeaderMenu();
 						cout<<"Under Construction!\n";
@@ -176,6 +189,9 @@ int main(){
 					} else if(gudangAChoice == "4"){
 						system("cls");
 						gudangBack = true;
+					} else if(gudangAChoice == "5"){
+						system("cls");
+						mainBack = true;
 					} else {
 						aksesGudangHeaderMenu();
 						cout<<"Wrong Input!\n";
@@ -187,10 +203,7 @@ int main(){
 				} else if(gudangChoice == "2"){
 					string gudangBChoice;
 					aksesGudangHeaderMenu();
-					cout<<"1. Cek Barang Gudang B\n";
-					cout<<"2. Tambah barang Masuk\n";
-					cout<<"3. Tambah Barang Keluar\n";
-					cout<<"4. Back\n";
+					cout<<"1. Cek Barang Gudang B\n2. Tambah barang Masuk\n3. Tambah Barang Keluar\n4. Back\n";
 					border();
 					cout<<"Masukkan angka: ";
 					cin>>gudangBChoice;
@@ -231,10 +244,7 @@ int main(){
 				} else if(gudangChoice == "3"){
 					string gudangCChoice;
 					aksesGudangHeaderMenu();
-					cout<<"1. Cek Barang Gudang C\n";
-					cout<<"2. Tambah barang Masuk\n";
-					cout<<"3. Tambah Barang Keluar\n";
-					cout<<"4. Back\n";
+					cout<<"1. Cek Barang Gudang C\n2. Tambah barang Masuk\n3. Tambah Barang Keluar\n4. Back\n";
 					border();
 					cout<<"Masukkan angka: ";
 					cin>>gudangCChoice;
@@ -300,7 +310,9 @@ int main(){
 			mainBack = true;
 		} else if(menuChoice=="4"){
 			mainMenuHeader();
-			cout<<"Under Construction!\n";
+			cout<<"Cari Barang Berdasarkan: \n";
+			cout<<"1. Nama Barang\n2. Kode Unit Barang\n3. Asal Barang\n4. Tujuan Barang\n";
+			border();
 			system("Pause");
 			system("cls");
 			mainBack = true;
