@@ -144,20 +144,47 @@ int main(){
 					system("cls");
 					if(gudangAChoice == "1"){
 						aksesGudangHeaderMenu();
-						for(int i=0; i<nGdgA; i++){
-							cout<<"\n";
-							cout<<"Nama Barang: "<<gda.nama_barang[i]<<endl;
-							cout<<"Bahan Barang: "<<gda.bahan_barang[i]<<endl;
-							cout<<"Jumlah Barang: "<<gda.jumlah_barang[i]<<" Unit"<<endl;
-							cout<<"Asal Barang: "<<gda.asal_barang[i]<<endl;
+						if(nGdgA == 0) {
+							cout<<"Gudang Kosong\n";
+						} else {
+							/*cout<<" Nama Barang  ||  Bahan Barang  ||  Jumlah Barang  ||  Asal Barang\n";
+							border();*/
+							for(int i=0; i<nGdgA; i++){
+								cout<<"\n";
+								cout<<"Nama Barang: "<<gda.nama_barang[i]<<endl;
+								cout<<"Bahan Barang: "<<gda.bahan_barang[i]<<endl;
+								cout<<"Jumlah Barang: "<<gda.jumlah_barang[i]<<" Unit"<<endl;
+								cout<<"Asal Barang: "<<gda.asal_barang[i]<<endl;
 							border();
+							/*cout<<" "<<gda.nama_barang[i]<<"    ||    "<<gda.bahan_barang[i]<<"    ||    "<<gda.jumlah_barang[i]<<"    ||    "<<gda.asal_barang[i]<<endl;
+							border();*/
+							}
 						}
-						
 						border();
-						system("Pause");
+						string cariBarangGdA;
+						cout<<"1. Cari Barang  2. Back\n";
+						border();
+						cin>>cariBarangGdA;
+						system("cls");
+						if(cariBarangGdA=="1"){
+							cout<<"Sorry, Under Construction!\n";
+							border();
+							gudangBack=true;
+						} else if(cariBarangGdA=="2"){
+							system("cls");
+							gudangBack=true;
+							mainBack=false;
+						} else{
+							cout<<"WrongInput!\n";
+							system("pause");
+							system("cls");
+							gudangBack=false;
+							mainBack=true;
+						}
+						/*system("Pause");
 						system("cls");
 						gudangBack = true;
-						mainBack=false;
+						mainBack=false;*/
 					} else if(gudangAChoice == "2"){
 						int tambahBarangBack;
 						do{
@@ -221,14 +248,19 @@ int main(){
 					system("cls");
 					if(gudangBChoice == "1"){
 						aksesGudangHeaderMenu();
-						for(int i=0; i<nGdgB; i++){
-							cout<<"\n";
-							cout<<"Nama Barang: "<<gdb.nama_barang[i]<<endl;
-							cout<<"Bahan Barang: "<<gdb.bahan_barang[i]<<endl;
-							cout<<"Jumlah Barang: "<<gdb.jumlah_barang[i]<<" Unit"<<endl;
-							cout<<"Asal Barang: "<<gdb.asal_barang[i]<<endl;
+						if(nGdgB==0){
+							cout<<"Gudang Kosong\n";
+						} else {
+							for(int i=0; i<nGdgB; i++){
+								cout<<"\n";
+								cout<<"Nama Barang: "<<gdb.nama_barang[i]<<endl;
+								cout<<"Bahan Barang: "<<gdb.bahan_barang[i]<<endl;
+								cout<<"Jumlah Barang: "<<gdb.jumlah_barang[i]<<" Unit"<<endl;
+								cout<<"Asal Barang: "<<gdb.asal_barang[i]<<endl;
 							border();
+							}
 						}
+						
 						border();
 						system("Pause");
 						system("cls");
@@ -301,14 +333,19 @@ int main(){
 					system("cls");
 					if(gudangCChoice == "1"){
 						aksesGudangHeaderMenu();
-						for(int i=0; i<nGdgC; i++){
-							cout<<"\n";
-							cout<<"Nama Barang: "<<gdc.nama_barang[i]<<endl;
-							cout<<"Bahan Barang: "<<gdc.bahan_barang[i]<<endl;
-							cout<<"Jumlah Barang: "<<gdc.jumlah_barang[i]<<" Unit"<<endl;
-							cout<<"Asal Barang: "<<gdc.asal_barang[i]<<endl;
+						if(nGdgC==0){
+							cout<<"Gudang Kosong\n";
+						} else {
+							for(int i=0; i<nGdgC; i++){
+								cout<<"\n";
+								cout<<"Nama Barang: "<<gdc.nama_barang[i]<<endl;
+								cout<<"Bahan Barang: "<<gdc.bahan_barang[i]<<endl;
+								cout<<"Jumlah Barang: "<<gdc.jumlah_barang[i]<<" Unit"<<endl;
+								cout<<"Asal Barang: "<<gdc.asal_barang[i]<<endl;
 							border();
+							}
 						}
+						
 						border();
 						system("Pause");
 						system("cls");
