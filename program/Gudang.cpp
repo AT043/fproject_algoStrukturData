@@ -6,6 +6,7 @@ int nGdgA, nGdgB, nGdgC = 0;
 
 struct gudangA{
 	//string kode_unit;
+	string nama_gudang[1]={"Gudang A"};
 	string nama_barang[1000];
 	string bahan_barang[1000];
 	//string ukuran_barang[1000];
@@ -15,10 +16,11 @@ struct gudangA{
 	//waktu_tiba;
 	string asal_barang[1000];
 }; 
-	gudangA gda;
+	//gudangA gda;
 
 struct gudangB{
 	//string kode_unit;
+	string nama_gudang[1]={"Gudang B"};
 	string nama_barang[1000];
 	string bahan_barang[1000];
 	//string ukuran_barang[1000];
@@ -27,10 +29,11 @@ struct gudangB{
 	long long jumlah_barang[1000];
 	//waktu_tiba;
 	string asal_barang[1000];
-}; gudangB gdb;
+}; //gudangB gdb;
 
 struct gudangC{
 	//string kode_unit;
+	string nama_gudang[1]={"Gudang C"};
 	string nama_barang[1000];
 	string bahan_barang[1000];
 	//string ukuran_barang[1000];
@@ -39,7 +42,21 @@ struct gudangC{
 	long long jumlah_barang[1000];
 	//waktu_tiba;
 	string asal_barang[1000];
-}; gudangC gdc;
+}; //gudangC gdc;
+
+struct stucked{
+	string nuke[1]={"bomb"};
+};
+
+struct barangMasuk{
+	struct gudangA gda;
+	struct gudangB gdb;
+	struct gudangC gdc;
+}; barangMasuk msk;
+
+/*struct barangKeluar{
+	string 
+};*/
 
 void border(){
 	char x[2]="=";
@@ -151,12 +168,12 @@ int main(){
 							border();*/
 							for(int i=0; i<nGdgA; i++){
 								cout<<"\n";
-								cout<<"Nama Barang: "<<gda.nama_barang[i]<<endl;
-								cout<<"Bahan Barang: "<<gda.bahan_barang[i]<<endl;
-								cout<<"Jumlah Barang: "<<gda.jumlah_barang[i]<<" Unit"<<endl;
-								cout<<"Asal Barang: "<<gda.asal_barang[i]<<endl;
+								cout<<"Nama Barang: "<<msk.gda.nama_barang[i]<<endl;
+								cout<<"Bahan Barang: "<<msk.gda.bahan_barang[i]<<endl;
+								cout<<"Jumlah Barang: "<<msk.gda.jumlah_barang[i]<<" Unit"<<endl;
+								cout<<"Asal Barang: "<<msk.gda.asal_barang[i]<<endl;
 							border();
-							/*cout<<" "<<gda.nama_barang[i]<<"    ||    "<<gda.bahan_barang[i]<<"    ||    "<<gda.jumlah_barang[i]<<"    ||    "<<gda.asal_barang[i]<<endl;
+							/*cout<<" "<<msk.gda.nama_barang[i]<<"    ||    "<<msk.gda.bahan_barang[i]<<"    ||    "<<msk.gda.jumlah_barang[i]<<"    ||    "<<msk.gda.asal_barang[i]<<endl;
 							border();*/
 							}
 						}
@@ -189,10 +206,10 @@ int main(){
 						int tambahBarangBack;
 						do{
 							aksesGudangHeaderMenu();
-							cout<<"Nama Barang: ";cin>>gda.nama_barang[nGdgA];
-							cout<<"\nBahan Barang: ";cin>>gda.bahan_barang[nGdgA];
-							cout<<"\nJumlah Barang: ";cin>>gda.jumlah_barang[nGdgA];
-							cout<<"\nAsal Barang: ";cin>>gda.asal_barang[nGdgA];
+							cout<<"Nama Barang: ";cin>>msk.gda.nama_barang[nGdgA];
+							cout<<"\nBahan Barang: ";cin>>msk.gda.bahan_barang[nGdgA];
+							cout<<"\nJumlah Barang: ";cin>>msk.gda.jumlah_barang[nGdgA];
+							cout<<"\nAsal Barang: ";cin>>msk.gda.asal_barang[nGdgA];
 							cout<<"\n";
 							border();
 							string tambahBarang;
@@ -253,10 +270,10 @@ int main(){
 						} else {
 							for(int i=0; i<nGdgB; i++){
 								cout<<"\n";
-								cout<<"Nama Barang: "<<gdb.nama_barang[i]<<endl;
-								cout<<"Bahan Barang: "<<gdb.bahan_barang[i]<<endl;
-								cout<<"Jumlah Barang: "<<gdb.jumlah_barang[i]<<" Unit"<<endl;
-								cout<<"Asal Barang: "<<gdb.asal_barang[i]<<endl;
+								cout<<"Nama Barang: "<<msk.gdb.nama_barang[i]<<endl;
+								cout<<"Bahan Barang: "<<msk.gdb.bahan_barang[i]<<endl;
+								cout<<"Jumlah Barang: "<<msk.gdb.jumlah_barang[i]<<" Unit"<<endl;
+								cout<<"Asal Barang: "<<msk.gdb.asal_barang[i]<<endl;
 							border();
 							}
 						}
@@ -270,10 +287,10 @@ int main(){
 						int tambahBarangBack;
 						do{
 							aksesGudangHeaderMenu();
-							cout<<"Nama Barang: ";cin>>gdb.nama_barang[nGdgB];
-							cout<<"\nBahan Barang: ";cin>>gdb.bahan_barang[nGdgB];
-							cout<<"\nJumlah Barang: ";cin>>gdb.jumlah_barang[nGdgB];
-							cout<<"\nAsal Barang: ";cin>>gdb.asal_barang[nGdgB];
+							cout<<"Nama Barang: ";cin>>msk.gdb.nama_barang[nGdgB];
+							cout<<"\nBahan Barang: ";cin>>msk.gdb.bahan_barang[nGdgB];
+							cout<<"\nJumlah Barang: ";cin>>msk.gdb.jumlah_barang[nGdgB];
+							cout<<"\nAsal Barang: ";cin>>msk.gdb.asal_barang[nGdgB];
 							cout<<"\n";
 							border();
 							string tambahBarang;
@@ -338,10 +355,10 @@ int main(){
 						} else {
 							for(int i=0; i<nGdgC; i++){
 								cout<<"\n";
-								cout<<"Nama Barang: "<<gdc.nama_barang[i]<<endl;
-								cout<<"Bahan Barang: "<<gdc.bahan_barang[i]<<endl;
-								cout<<"Jumlah Barang: "<<gdc.jumlah_barang[i]<<" Unit"<<endl;
-								cout<<"Asal Barang: "<<gdc.asal_barang[i]<<endl;
+								cout<<"Nama Barang: "<<msk.gdc.nama_barang[i]<<endl;
+								cout<<"Bahan Barang: "<<msk.gdc.bahan_barang[i]<<endl;
+								cout<<"Jumlah Barang: "<<msk.gdc.jumlah_barang[i]<<" Unit"<<endl;
+								cout<<"Asal Barang: "<<msk.gdc.asal_barang[i]<<endl;
 							border();
 							}
 						}
@@ -355,10 +372,10 @@ int main(){
 						int tambahBarangBack;
 						do{
 							aksesGudangHeaderMenu();
-							cout<<"Nama Barang: ";cin>>gdc.nama_barang[nGdgC];
-							cout<<"\nBahan Barang: ";cin>>gdc.bahan_barang[nGdgC];
-							cout<<"\nJumlah Barang: ";cin>>gdc.jumlah_barang[nGdgC];
-							cout<<"\nAsal Barang: ";cin>>gdc.asal_barang[nGdgC];
+							cout<<"Nama Barang: ";cin>>msk.gdc.nama_barang[nGdgC];
+							cout<<"\nBahan Barang: ";cin>>msk.gdc.bahan_barang[nGdgC];
+							cout<<"\nJumlah Barang: ";cin>>msk.gdc.jumlah_barang[nGdgC];
+							cout<<"\nAsal Barang: ";cin>>msk.gdc.asal_barang[nGdgC];
 							cout<<"\n";
 							border();
 							string tambahBarang;
@@ -425,7 +442,20 @@ int main(){
 			
 		} else if(menuChoice=="2"){
 			mainMenuHeader();
-			cout<<"Under Construction!\n";
+			if (nGdgA == 0 && nGdgB == 0 && nGdgC == 0){
+				cout<<"Data Barang Kosong\n";
+			} else {
+				int x=0;
+				cout<<msk.gda.nama_gudang[0]<<endl;
+					for(int i=nGdgA-1; i>=0; i--){
+					cout<<"Nama Barang: "<<msk.gda.nama_barang[i]<<endl;
+					cout<<"Bahan Barang: "<<msk.gda.bahan_barang[i]<<endl;
+					cout<<"Jumlah Barang: "<<msk.gda.jumlah_barang[i]<<endl;
+					x++;
+					border();
+					cout<<endl;
+					}
+			}
 			system("Pause");
 			system("cls");
 			mainBack = true;
