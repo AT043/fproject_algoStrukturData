@@ -445,16 +445,30 @@ int main(){
 			if (nGdgA == 0 && nGdgB == 0 && nGdgC == 0){
 				cout<<"Data Barang Kosong\n";
 			} else {
-				int x=0;
 				cout<<msk.gda.nama_gudang[0]<<endl;
-					for(int i=nGdgA-1; i>=0; i--){
+				for(int i=nGdgA-1; i>=0; i--){
 					cout<<"Nama Barang: "<<msk.gda.nama_barang[i]<<endl;
 					cout<<"Bahan Barang: "<<msk.gda.bahan_barang[i]<<endl;
 					cout<<"Jumlah Barang: "<<msk.gda.jumlah_barang[i]<<endl;
-					x++;
 					border();
-					cout<<endl;
-					}
+					cout<<endl;	
+				}
+				cout<<msk.gdb.nama_gudang[0]<<endl;
+				for(int i=nGdgB-1; i>=0; i--){
+					cout<<"Nama Barang: "<<msk.gdb.nama_barang[i]<<endl;
+					cout<<"Bahan Barang: "<<msk.gdb.bahan_barang[i]<<endl;
+					cout<<"Jumlah Barang: "<<msk.gdb.jumlah_barang[i]<<endl;
+					border();
+					cout<<endl;	
+				}
+				cout<<msk.gdc.nama_gudang[0]<<endl;
+				for(int i=nGdgC-1; i>=0; i--){
+					cout<<"Nama Barang: "<<msk.gdc.nama_barang[i]<<endl;
+					cout<<"Bahan Barang: "<<msk.gdc.bahan_barang[i]<<endl;
+					cout<<"Jumlah Barang: "<<msk.gdc.jumlah_barang[i]<<endl;
+					border();
+					cout<<endl;	
+				}
 			}
 			system("Pause");
 			system("cls");
