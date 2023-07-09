@@ -229,6 +229,22 @@ int main(){
 							}
 						} while(tambahBarangBack == 1);
 						nGdgA++;
+						/*int n =0;
+							bool ketemu = false;
+							while((!ketemu) && (n<nGdgA)){
+								if (msk.gda.nama_barang[n] == sementara){
+									ketemu = true;
+									msk.gda.nama_barang[nGdgA] = sementara;
+									msk.gda.jumlah_barang[n] + msk.gda.jumlah_barang[nGdgA];
+									break;
+								} else {
+									n++;
+								}
+							} 
+							if (!ketemu){
+								tambahBarangBack =1;
+							}*/
+						
 					} else if(gudangAChoice == "3"){
 						aksesGudangHeaderMenu();
 						cout<<"Under Construction!\n";
@@ -444,14 +460,18 @@ int main(){
 			mainMenuHeader();
 			if (nGdgA == 0 && nGdgB == 0 && nGdgC == 0){
 				cout<<"Data Barang Kosong\n";
+				border();
 			} else {
 				cout<<msk.gda.nama_gudang[0]<<endl;
-				for(int i=nGdgA-1; i>=0; i--){
-					cout<<"Nama Barang: "<<msk.gda.nama_barang[i]<<endl;
-					cout<<"Bahan Barang: "<<msk.gda.bahan_barang[i]<<endl;
-					cout<<"Jumlah Barang: "<<msk.gda.jumlah_barang[i]<<endl;
-					border();
-					cout<<endl;	
+				for(int i=0; i<nGdgA; i++){
+					if(i<5){
+						cout<<"Nama Barang: "<<msk.gda.nama_barang[i]<<endl;
+						cout<<"Bahan Barang: "<<msk.gda.bahan_barang[i]<<endl;
+						cout<<"Jumlah Barang: "<<msk.gda.jumlah_barang[i]<<endl;
+						border();
+						cout<<endl;*/
+					}
+				
 				}
 				cout<<msk.gdb.nama_gudang[0]<<endl;
 				for(int i=nGdgB-1; i>=0; i--){
@@ -468,6 +488,21 @@ int main(){
 					cout<<"Jumlah Barang: "<<msk.gdc.jumlah_barang[i]<<endl;
 					border();
 					cout<<endl;	
+				}
+				border();
+				int n;
+				cout<<"1. Cari barang  "<<"2. Back"<<endl;
+				cin>>n;
+				if(n==1){
+					cout<<"Under Construction/n";
+				} else if(n==2){
+					mainBack = true;
+					system("cls");
+				} else {
+					cout<<"Too Bad, That's Wrong Input!\n";
+					system("pause");
+					system("cls");
+					mainBack = true;
 				}
 			}
 			system("Pause");
