@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+int ketemu=1;
 string mainChoice, gudangChoice, menuGudangA, menuGudangB, menuGudangC;
 
 struct Barang{
@@ -57,7 +58,6 @@ void tampilkanDaftarBarang(const vector<Barang>& gudang) {
 }
 
 void tampilkanDaftarBarangMasuk(const vector<Barang>& gudang){
-	
 	int last_five=0;
 	for (const Barang& barang : gudang) {
         cout <<"nama barang: "<<barang.nama <<"\n"; 
@@ -67,11 +67,34 @@ void tampilkanDaftarBarangMasuk(const vector<Barang>& gudang){
 		border();
 		if(last_five>5){
 			break;
-		}
-		last_five++;
+		}last_five++;
     }
 	cout<<endl;
 }
+
+void temukanBarang(vector<Barang>& gudang) {
+    string namaBarang;
+
+    cout << "Masukkan nama barang yang ingin dicari: ";
+    cin >> namaBarang;
+
+    bool barangDitemukan = false;
+    for (auto it = gudang.begin(); it != gudang.end(); ++it) {
+        if (it->nama == namaBarang) {
+            barangDitemukan = true;
+            break;
+        }
+    }
+
+    if (barangDitemukan) {
+        cout << "Barang berhasil berada di gudang.\n\n";
+        int ketemu+=1;
+    } else {
+        cout << "Barang tidak ditemukan di gudang.\n\n";
+        int ketemu-=1;
+    }
+}
+
 void mainHeader(){
 	border();
 	cout<<"\n ===Sistem Gudang Dono Furniture===\n\n";
@@ -252,6 +275,11 @@ int main(){
 			menuChoiceHeader();
 		} else if(mainChoice == "4"){
 			menuChoiceHeader();
+			temukanBarang(gudangA);
+			border();
+			system("pause");
+			system("cls");
+			mainBack = true;
 		} else {
 			mainHeader();
 			cout<<"\nSorry wrong input, you will be\ndirected to main menu\n";
