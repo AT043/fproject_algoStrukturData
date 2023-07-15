@@ -12,23 +12,30 @@ int kode() {
     return random;
 }
 
+int time(){
+	time_t my_time = time(NULL);
+	cout<<ctime(&my_time);
+	return 0;
+}
+
 struct Barang {
     long long kodeMsk;
     string nama;
     long long jumlah;
+    long long tglMsk;
     string bahan;
     string asal;
 };
 
 struct Cabang {
-    string gudangA[6];
-    string gudangB[4];
-    string gudangC[4];
+    string gudangA[10];
+    string gudangB[10];
+    string gudangC[10];
 };
 
-Cabang cabang = { {"Jakarta", "Bandung", "Bekasi", "Cirebon", "Karawang", "Lampung"},
-                  {"Semarang", "Yogyakarta", "Purwokerto", "Cilacap"},
-                  {"Madiun", "Banyuwangi", "Bali", "Jember"} };
+Cabang cabang = { {"depok", "jakarta", "bandung", "bekasi", "cirebon", "karawang", "lampung"},
+                  {"solo", "semarang", "yogyakarta", "purwokerto", "cilacap"},
+                  {"surabaya", "malang", "banyuwangi", "bali", "jember"} };
 
 void border() {
     char x = '=';
@@ -42,20 +49,31 @@ void tambahBarang(vector<Barang>& gudang) {
     long long kodeMasukBarang;
     string namaBarang;
     long long jumlahBarang;
+    long long tglMskBarang;
     string bahanBarang;
     string asalBarang;
 
     kodeMasukBarang = kode();
     cout << "Masukkan nama barang: ";
-    cin >> namaBarang;
+   
+    cin.ignore();getline(cin, namaBarang); transform(namaBarang.begin(), namaBarang.end(), namaBarang.begin(), [](unsigned char c) {
+        return tolower(c);
+    });
     cout << "Masukkan jumlah barang: ";
-    cin >> jumlahBarang;
+    cin >> jumlahBarang; 
+    
+    tglMskBarang = time();
+    
     cout << "Masukkan bahan barang: ";
-    cin >> bahanBarang;
+    cin.ignore();getline(cin, bahanBarang); transform(bahanBarang.begin(), bahanBarang.end(), bahanBarang.begin(), [](unsigned char c) {
+        return tolower(c);
+    });
     cout << "Masukkan asal barang: ";
-    cin >> asalBarang;
-
-    Barang barang{ kodeMasukBarang, namaBarang, jumlahBarang, bahanBarang, asalBarang };
+	getline(cin, asalBarang); transform(asalBarang.begin(), asalBarang.end(), asalBarang.begin(), [](unsigned char c) {
+        return tolower(c);
+    });
+	
+    Barang barang{ kodeMasukBarang, namaBarang, jumlahBarang, tglMskBarang, bahanBarang, asalBarang };
     gudang.push_back(barang);
 
     cout << "Barang berhasil ditambahkan ke gudang.\n\n";
@@ -66,6 +84,7 @@ void tampilkanDaftarBarang(const vector<Barang>& gudang) {
         cout << "kode masuk barang: " << barang.kodeMsk << "\n";
         cout << "nama barang: " << barang.nama << "\n";
         cout << "jumlah barang: " << barang.jumlah << " unit\n";
+        cout << "tanggal barang masuk: "<<barang.tglMsk<<"\n";
         cout << "bahan barang: " << barang.bahan << "\n";
         cout << "asal barang: " << barang.asal << "\n";
         border();
@@ -79,6 +98,7 @@ void tampilkanDaftarBarangMasuk(const vector<Barang>& gudang) {
     	cout << "kode masuk barang: "<<barang.kodeMsk<<"\n";
         cout << "nama barang: " << barang.nama << "\n";
         cout << "jumlah barang: " << barang.jumlah << " unit\n";
+        cout << "tanggal barang masuk: "<<barang.tglMsk<<"\n";
         cout << "bahan barang: " << barang.bahan << "\n";
         cout << "asal barang: " << barang.asal << "\n";
         last_five++;
@@ -97,7 +117,9 @@ void temukanBarang(const vector<Barang>& gudang) {
     string namaBarang;
 
     cout << "Masukkan nama barang yang ingin dicari: ";
-    cin >> namaBarang;
+    cin.ignore();getline(cin, namaBarang); transform(namaBarang.begin(), namaBarang.end(), namaBarang.begin(), [](unsigned char c) {
+        return tolower(c);
+    });
 
     bool barangDitemukan = false;
     for (const Barang& barang : gudang) {
@@ -107,6 +129,7 @@ void temukanBarang(const vector<Barang>& gudang) {
             cout << "kode masuk barang: " << barang.kodeMsk << "\n";
             cout << "nama barang: " << barang.nama << "\n";
             cout << "jumlah barang: " << barang.jumlah << " unit\n";
+            cout << "tanggal barang masuk: "<<barang.tglMsk<<"\n";
             cout << "bahan barang: " << barang.bahan << "\n";
             cout << "asal barang: " << barang.asal << "\n";
             border();
@@ -122,21 +145,35 @@ void temukanBarang(const vector<Barang>& gudang) {
 // Fungsi untuk menghapus barang dari gudang
 void hapusBarang(vector<Barang>& gudang) {
     string namaBarang;
+    long long jumlahBarang;
 
     cout << "Masukkan nama barang yang ingin dihapus: ";
-    cin >> namaBarang;
+    cin.ignore();getline(cin, namaBarang); transform(namaBarang.begin(), namaBarang.end(), namaBarang.begin(), [](unsigned char c) {
+        return tolower(c);
+    });
+    
+    cout<<"Masukkan jumlah barang yang akan dipindah: ";
+    cin >> jumlahBarang;
 
     bool barangDitemukan = false;
     for (auto it = gudang.begin(); it != gudang.end(); ++it) {
-        if (it->nama == namaBarang) {
-            gudang.erase(it);
-            barangDitemukan = true;
-            break;
+       
+        if (it->nama == namaBarang && it->jumlah >= jumlahBarang) {
+            it->jumlah -= jumlahBarang;
+            
+            
+            // Check if jumlah becomes zero and erase the element
+            if (it->jumlah == 0) {
+                gudang.erase(it);
+                barangDitemukan = true;
+            	break;
+            }
+
         }
     }
 
     if (barangDitemukan) {
-        cout << "Barang berhasil dihapus dari gudang.\n\n";
+        cout << "Barang sedang dikirim ke tempat tujuan.\n\n";
     } else {
         cout << "Barang tidak ditemukan di gudang.\n\n";
     }
@@ -150,39 +187,51 @@ void pindahkanBarang(vector<Barang>& gudangAsal, vector<Barang>& gudangTujuan) {
     string namaBarang;
 
     cout << "Masukkan nama barang yang ingin dipindahkan: ";
-    cin >> namaBarang;
-
+    cin>>namaBarang;
+    /*cin.ignore();getline(cin, namaBarang);transform(namaBarang.begin(), namaBarang.end(), namaBarang.begin(), [](unsigned char c) {
+        return tolower(c);
+    });*/
+    
     long long jumlahBarang;
 
     cout << "Masukkan jumlah barang yang ingin dipindahkan: ";
     cin >> jumlahBarang;
     
+    long long tglMskBarang = time();
+    
     string bahanBarang;
     
     cout << "Masukkan bahan barang: ";
-    cin>>bahanBarang;
+    cin >> bahanBarang;
+    /*cin.ignore();getline(cin, bahanBarang);transform(bahanBarang.begin(), bahanBarang.end(), bahanBarang.begin(), [](unsigned char c) {
+        return tolower(c);
+    });*/
     
     string asalBarang;
     
     cout << "Masukkan asal barang: ";
     cin>>asalBarang;
+    /*getline(cin, asalBarang);transform(asalBarang.begin(), asalBarang.end(), asalBarang.begin(), [](unsigned char c) {
+        return tolower(c);
+    });*/
 
     bool barangDitemukan = false;
     for (auto it = gudangAsal.begin(); it != gudangAsal.end(); ++it) {
         if (it->nama == namaBarang && it->jumlah >= jumlahBarang) {
             it->jumlah -= jumlahBarang;
             
-            // Check if jumlah becomes zero and erase the element
+            // Mengecek jumlahBarang jika 0 maka data dihapus;
             if (it->jumlah == 0) {
                 gudangAsal.erase(it);
             }
 
-            // Mencari barang dengan nama yang sama di gudang tujuan
+            // Mencari barang dengan nama yang sama di gudang tujuan;	
             bool barangDitemukanTujuan = false;
             for (Barang& barangTujuan : gudangTujuan) {
                 if (barangTujuan.nama == namaBarang) {
                 	barangTujuan.kodeMsk = kodeMasukBarang;
                     barangTujuan.jumlah += jumlahBarang;
+                    barangTujuan.tglMsk = tglMskBarang;
                     barangTujuan.bahan = bahanBarang;
                     barangTujuan.asal = asalBarang;
                     barangDitemukanTujuan = true;
@@ -228,24 +277,27 @@ void menuChoiceHeader() {
         cout << "Data Barang Masuk\n";
     }
     else if (mainChoice == "3") {
-        cout << "Data Barang Keluar\n";
+        cout << "Pencarian Barang\n";
     }
     else if (mainChoice == "4") {
-        cout << "Pencarian Barang \n";
+        cout << "Info Dono Furniture\n";
     }
+    else if(mainChoice == "5"){
+    	cout<<"Keluar dari Aplikasi\n";
+	}
     border();
 }
 
 void aksesGudangHeader() {
     border();
     if (gudangChoice == "1") {
-        cout << "Anda Sedang Berada di Gudang A\n";
+        cout << "Anda Sedang Berada di Gudang A \"Depok\" \n";
     }
     else if (gudangChoice == "2") {
-        cout << "Anda Sedang Berada di Gudang B\n";
+        cout << "Anda Sedang Berada di Gudang B \"Solo\" \n";
     }
     else if (gudangChoice == "3") {
-        cout << "Anda Sedang Berada di Gudang C\n";
+        cout << "Anda Sedang Berada di Gudang C \"Surabaya\" \n";
     }
     else if (gudangChoice == "4") {
         cout << "\n";
@@ -264,7 +316,7 @@ int main() {
     bool mainBack;
     do {
         mainHeader();
-        cout << "\n1. Akses Gudang\n2. Cek Barang Masuk\n3. Cek Barang Keluar\n4. Cari Barang\n";
+        cout << "\n1. Akses Gudang\n2. Cek Barang Masuk\n3. Cari Barang\n4. Info Gudang\n5. Keluar\n";
         border();
         cout << "Masukkan pilihan angka\nmisal pilih 2 untuk lihat barang masuk\n";
         border();
@@ -357,14 +409,16 @@ int main() {
                         string tujuanBarang;
                         cout<<"masukkan tujuan barang: \n";
                         border();
-                        cin>>tujuanBarang;
+                        cin.ignore();getline(cin, tujuanBarang);transform(tujuanBarang.begin(), tujuanBarang.end(), tujuanBarang.begin(), [](unsigned char c) {
+        					return tolower(c);
+    					});
                         border();
                         int size = sizeof(cabang.gudangA) / sizeof(cabang.gudangA[0]);
 						bool ketemu = false;
 						for (int i = 0; i < size; i++) {
     						if (tujuanBarang == cabang.gudangA[i]) {
         						ketemu = true;
-        						cout << "yeay";
+        						hapusBarang(gudangA);
         						break;
     						}
 						}
@@ -497,7 +551,9 @@ int main() {
                         string tujuanBarang;
                         cout<<"masukkan tujuan barang: \n";
                         border();
-                        cin>>tujuanBarang;
+                        cin.ignore();getline(cin, tujuanBarang);transform(tujuanBarang.begin(), tujuanBarang.end(), tujuanBarang.begin(), [](unsigned char c) {
+        					return tolower(c);
+    					});
                         border();
                         int size = sizeof(cabang.gudangB) / sizeof(cabang.gudangB[0]);
 						bool ketemu = false;
@@ -584,10 +640,13 @@ int main() {
         }
         else if (mainChoice == "2") {
             menuChoiceHeader();
+            cout<<"Barang Masuk Gudang A \n";
             tampilkanDaftarBarangMasuk(gudangA);
             border();
+            cout<<"Barang Masuk Gudang B \n";
             tampilkanDaftarBarangMasuk(gudangB);
             border();
+            cout<<"Barang Masuk Gudang C \n";
             tampilkanDaftarBarangMasuk(gudangC);
             border();
             system("pause");
@@ -595,9 +654,6 @@ int main() {
             mainBack = true;
         }
         else if (mainChoice == "3") {
-            menuChoiceHeader();
-        }
-        else if (mainChoice == "4") {
             string pilCariGudang;
             menuChoiceHeader();
             cout << "Pilih Daftar Gudang: \n1. Gudang A Depok \n2. Gudang B Bandung \n3. Gudang C Solo\n";
@@ -626,7 +682,52 @@ int main() {
             system("cls");
             mainBack = true;
         }
-        else {
+        else if (mainChoice == "4") {
+        	string infoGudang;
+            menuChoiceHeader();
+            cout<<"\n1. Info Dono Furniture\n2. Info Gudang dan cabang\n3. Keluar\n";
+            border();
+            cin>>infoGudang;
+            system("cls");
+            if (infoGudang == "1"){
+            	cout<<"Happy Birthday!\n";
+            	border();
+            	system("pause");
+            	system("cls");
+            	mainBack = true;
+			} else if(infoGudang == "2"){
+				cout<<"\n1. Gudang A-Depok (Depok, Jakarta, Bandung, Bekasi, Karawang, Lampung)\n2. Gudang B-Solo (Solo Raya, Semarang, Purwokerto, Cilacap)\n3. Gudang C-Surabaya (Surabaya, Malang, Banyuwangi, Jember, Bali)\n";
+				system("pause");
+				system("cls");
+				mainBack = true;
+			} else if(infoGudang == "3"){
+				cout<<"kembali ke menu utama\n";
+				system("pause");
+				system("cls");
+				mainBack = true;
+			}
+        } else if (mainChoice == "5"){
+        	string quit;
+			menuChoiceHeader();
+			cout<<"\nYakin ingin keluar dari aplikasi?\njika Anda keluar maka seluruh data\nakan ter-reset ulang\n\n";
+			border();
+			cout<<"1. Keluar  2. Kembali ke Menu utama\n";
+			border();
+			cin>>quit;
+			if(quit=="1"){
+				system("pause");
+				return 0;
+			} else if(quit=="2"){
+				system("cls");
+				mainBack = true;
+			} else {
+				cout << "\nSorry wrong input, you will be\ndirected to main menu\n";
+            	border();
+            	system("pause");
+            	system("cls");
+            	mainBack = true;
+			}
+		} else {
             mainHeader();
             cout << "\nSorry wrong input, you will be\ndirected to main menu\n";
             border();
