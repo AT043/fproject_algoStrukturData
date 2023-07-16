@@ -102,18 +102,35 @@ void tambahBarang(vector<Barang>& gudang) {
 }
 
 void tampilkanDaftarBarang(const vector<Barang>& gudang) {
+    map<string, vector<Barang>> groupedBarang;
+
+    // Group the Barang objects based on tujuanBarang
     for (const Barang& barang : gudang) {
-        cout << "\nkode masuk barang: " << barang.kodeMsk << "\n";
-        cout << "nama barang: " << barang.nama << "\n";
-        cout << "jumlah barang: " << barang.jumlah << " unit\n";
-        cout << "tanggal barang masuk: "<<barang.tglMsk<<"\n";
-        cout << "bahan barang: " << barang.bahan << "\n";
-        cout << "asal barang: " << barang.asal << "\n";
-        cout << "tujuan barang: "<< barang.tujuan << "\n\n";
-        border();
+        groupedBarang[barang.tujuan].push_back(barang);
     }
-    cout << endl;
+
+    // Iterate over the groupedBarang map and display the grouped Barang objects
+    for (const auto& entry : groupedBarang) {
+        const string& tujuanBarang = entry.first;
+        const vector<Barang>& barangGroup = entry.second;
+
+        cout << "Tujuan Barang: " << tujuanBarang << endl;
+
+        for (const Barang& barang : barangGroup) {
+            cout << "\nkode masuk barang: " << barang.kodeMsk << "\n";
+            cout << "nama barang: " << barang.nama << "\n";
+            cout << "jumlah barang: " << barang.jumlah << " unit\n";
+            cout << "tanggal barang masuk: " << barang.tglMsk << "\n";
+            cout << "bahan barang: " << barang.bahan << "\n";
+            cout << "asal barang: " << barang.asal << "\n";
+            cout << "tujuan barang: " << barang.tujuan << "\n\n";
+            border();
+        }
+
+        cout << endl;
+    }
 }
+
 
 void tampilkanDaftarBarangMasuk(const vector<Barang>& gudang) {
     int index = 0;
@@ -300,7 +317,7 @@ void pindahkanBarang(vector<Barang>& gudangAsal, vector<Barang>& gudangTujuan) {
 
 void mainHeader() {
     border();
-    cout << "\n ===Sistem Gudang Dono Furniture===\n\n";
+    cout << "\n ===Sistem Gudang Toko Dono===\n\n";
     border();
 }
 
@@ -348,10 +365,6 @@ int main() {
     vector<Barang> gudangA;
     vector<Barang> gudangB;
     vector<Barang> gudangC;
-    
-    //vector<Keluar> exitGudangA;
-    //vector<Keluar> exitGudangB;
-    //vector<Keluar> exitGudangC;
     
     bool mainBack;
     do {
