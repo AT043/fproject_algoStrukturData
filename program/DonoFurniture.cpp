@@ -12,11 +12,20 @@ int kode() {
     return random;
 }
 
-int time(){
-	time_t my_time = time(NULL);
-	cout<<ctime(&my_time);
-	return 0;
+int getTime() {
+   // current date and time on the current system
+   time_t now = time(0);
+
+   // convert now to string form
+   char* date_time = ctime(&now);
+
+   // convert the date and time string to an int value representing the timestamp
+   int timestamp = atoi(date_time);
+
+   return timestamp;
 }
+
+
 
 struct Barang {
     long long kodeMsk;
@@ -49,7 +58,7 @@ void tambahBarang(vector<Barang>& gudang) {
     long long kodeMasukBarang;
     string namaBarang;
     long long jumlahBarang;
-    long long tglMskBarang;
+   	int tglMskBarang;
     string bahanBarang;
     string asalBarang;
 
@@ -59,10 +68,11 @@ void tambahBarang(vector<Barang>& gudang) {
     cin.ignore();getline(cin, namaBarang); transform(namaBarang.begin(), namaBarang.end(), namaBarang.begin(), [](unsigned char c) {
         return tolower(c);
     });
+    
     cout << "Masukkan jumlah barang: ";
     cin >> jumlahBarang; 
     
-    tglMskBarang = time();
+    tglMskBarang = getTime();
     
     cout << "Masukkan bahan barang: ";
     cin.ignore();getline(cin, bahanBarang); transform(bahanBarang.begin(), bahanBarang.end(), bahanBarang.begin(), [](unsigned char c) {
@@ -187,17 +197,17 @@ void pindahkanBarang(vector<Barang>& gudangAsal, vector<Barang>& gudangTujuan) {
     string namaBarang;
 
     cout << "Masukkan nama barang yang ingin dipindahkan: ";
-    cin>>namaBarang;
-    /*cin.ignore();getline(cin, namaBarang);transform(namaBarang.begin(), namaBarang.end(), namaBarang.begin(), [](unsigned char c) {
+    //cin>>namaBarang;
+    getline(cin, namaBarang); transform(namaBarang.begin(), namaBarang.end(), namaBarang.begin(), [](unsigned char c) {
         return tolower(c);
-    });*/
+    });  
     
     long long jumlahBarang;
 
     cout << "Masukkan jumlah barang yang ingin dipindahkan: ";
     cin >> jumlahBarang;
     
-    long long tglMskBarang = time();
+    int tglMskBarang = getTime();
     
     string bahanBarang;
     
@@ -245,6 +255,7 @@ void pindahkanBarang(vector<Barang>& gudangAsal, vector<Barang>& gudangTujuan) {
                 barangTujuan.kodeMsk = kodeMasukBarang;
 				barangTujuan.nama = namaBarang;
 				barangTujuan.jumlah = jumlahBarang;
+				barangTujuan.tglMsk = tglMskBarang;
 				barangTujuan.bahan = bahanBarang;
 				barangTujuan.asal = asalBarang;
 				gudangTujuan.push_back(barangTujuan);		
@@ -560,7 +571,7 @@ int main() {
 						for (int i = 0; i < size; i++) {
     						if (tujuanBarang == cabang.gudangB[i]) {
         						ketemu = true;
-        						cout << "yeay";
+        						hapusBarang(gudangA);
         						break;
     						}
 						}
@@ -617,10 +628,145 @@ int main() {
                 else if (gudangChoice == "3") {
                     border();
                     cout << "\n";
+                    string pilihanGudangC;
                     aksesGudangHeader();
-                    cout << "\n1. Cek Barang Gudang A\n2. Tambah Barang Masuk\n3. Tambah Barang Keluar\n4. Back to Akses Gudang\n5. Back to Main Menu\n";
+                    cout << "\n1. Cek Barang Gudang C\n2. Tambah Barang Masuk\n3. Tambah Barang Keluar\n4. Back to Akses Gudang\n5. Back to Main Menu\n";
                     cout << "\n";
                     border();
+                    cin >> pilihanGudangC;
+                    system("cls");
+                    if (pilihanGudangC == "1") {
+                        aksesGudangHeader();
+                        tampilkanDaftarBarang(gudangC);
+                        string barangGudangC;
+                        cout << "\n";
+                        border();
+                        cout << "1. Cari Barang \n2. Kembali\n";
+                        border();
+                        cin >> barangGudangC;
+                        if (barangGudangC == "1") {
+                            temukanBarang(gudangC);
+                        }
+                        else if (barangGudangC == "2") {
+                            gudangBack = true;
+                            system("cls");
+                        }
+                        system("pause");
+                        system("cls");
+                        gudangBack = true;
+                    }
+                    else if (pilihanGudangC == "2") {
+                        int backTambahGudangC;
+
+                        do {
+                            string tambahGudangC;
+                            aksesGudangHeader();
+                            cout << "Jumlah item: ";
+                            cin >> jumlahItem;
+                            border();
+                            cout << "\n";
+                            for (int i = 0; i < jumlahItem; i++) {
+                                tambahBarang(gudangC);
+                                border();
+                            }
+                            cout << "\n";
+                            border();
+                            cout << "pilih: 1. Tambah Barang Lagi  2. Kembali\n";
+                            cin >> tambahGudangC;
+                            border();
+                            system("pause");
+                            system("cls");
+                            if (tambahGudangC == "1") {
+                                system("cls");
+                                backTambahGudangC = 1;
+                            }
+                            else if (tambahGudangC == "2") {
+                                system("cls");
+                                backTambahGudangC = 0;
+                                mainBack = false;
+                                gudangBack = true;
+                            }
+                            else {
+                                aksesGudangHeader();
+                                cout << "\nSorry wrong input, you will be\ndirected to akses gudang menu\n";
+                                border();
+                                system("pause");
+                                system("cls");
+                                gudangBack = true;
+                            }
+                        } while (backTambahGudangC == 1);
+
+                    }
+                    else if (pilihanGudangC == "3") {
+                        border();
+                        cout << "\n";
+                        aksesGudangHeader();
+                        string tujuanBarang;
+                        cout<<"masukkan tujuan barang: \n";
+                        border();
+                        cin.ignore();getline(cin, tujuanBarang);transform(tujuanBarang.begin(), tujuanBarang.end(), tujuanBarang.begin(), [](unsigned char c) {
+        					return tolower(c);
+    					});
+                        border();
+                        int size = sizeof(cabang.gudangC) / sizeof(cabang.gudangC[0]);
+						bool ketemu = false;
+						for (int i = 0; i < size; i++) {
+    						if (tujuanBarang == cabang.gudangC[i]) {
+        						ketemu = true;
+        						hapusBarang(gudangA);
+        						break;
+    						}
+						}
+
+						int sizeA = sizeof(cabang.gudangA) / sizeof(cabang.gudangA[0]);
+						bool ketemuA = false;
+						for (int i = 0; i < sizeA; i++) {
+    						if (tujuanBarang == cabang.gudangA[i]) {
+        						ketemuA = true;
+        						pindahkanBarang(gudangC, gudangA);
+        						break;
+    						}
+						}
+
+						int sizeB = sizeof(cabang.gudangB) / sizeof(cabang.gudangB[0]);
+						bool ketemuB = false;
+						for (int i = 0; i < sizeB; i++) {
+    						if (tujuanBarang == cabang.gudangB[i]) {
+        						ketemuB = true;
+        						pindahkanBarang(gudangC, gudangB);
+        						break;
+    						}
+						}
+
+						if (!ketemu && !ketemuA && !ketemuB) {
+    						cout << "Tujuan barang tidak valid\n";
+						}
+
+					cout << "\n";
+					border();
+					system("pause");
+					system("cls");
+					gudangBack = true;
+
+                    }
+                    else if (pilihanGudangC == "4") {
+                        system("cls");
+                        gudangBack = true;
+                    }
+                    else if (pilihanGudangC == "5") {
+                        system("cls");
+                        gudangBack = false;
+                        mainBack = true;
+                    }
+                    else {
+                        aksesGudangHeader();
+                        cout << "\nSorry wrong input, you will be\ndirected to akses gudang menu\n";
+                        border();
+                        system("pause");
+                        system("cls");
+                        gudangBack = true;
+                    }
+                    ///////////////////////////////////////////////////////////////////////////
                 }
                 else if (gudangChoice == "4") {
                     system("cls");
@@ -659,182 +805,33 @@ int main() {
             cout << "Pilih Daftar Gudang: \n1. Gudang A Depok \n2. Gudang B Bandung \n3. Gudang C Solo\n";
             border();
             cin >> pilCariGudang;
-            border();
             system("cls");
             border();
-                    cin >> pilihanGudangB;
-                    system("cls");
-                    if (pilihanGudangB == "1") {
-                        aksesGudangHeader();
-                        tampilkanDaftarBarang(gudangB);
-                        string barangGudangB;
-                        cout << "\n";
-                        border();
-                        cout << "1. Cari Barang \n2. Kembali\n";
-                        border();
-                        cin >> barangGudangB;
-                        if (barangGudangB == "1") {
-                            temukanBarang(gudangB);
-                        }
-                        else if (barangGudangB == "2") {
-                            gudangBack = true;
-                            system("cls");
-                        }
-                        system("pause");
-                        system("cls");
-                        gudangBack = true;
-                    }
-                    else if (pilihanGudangB == "2") {
-                        int backTambahGudangB;
-
-                        do {
-                            string tambahGudangB;
-                            aksesGudangHeader();
-                            cout << "Jumlah item: ";
-                            cin >> jumlahItem;
-                            border();
-                            cout << "\n";
-                            for (int i = 0; i < jumlahItem; i++) {
-                                tambahBarang(gudangB);
-                                border();
-                            }
-                            cout << "\n";
-                            border();
-                            cout << "pilih: 1. Tambah Barang Lagi  2. Kembali\n";
-                            cin >> tambahGudangB;
-                            border();
-                            system("pause");
-                            system("cls");
-                            if (tambahGudangB == "1") {
-                                system("cls");
-                                backTambahGudangB = 1;
-                            }
-                            else if (tambahGudangB == "2") {
-                                system("cls");
-                                backTambahGudangB = 0;
-                                mainBack = false;
-                                gudangBack = true;
-                            }
-                            else {
-                                aksesGudangHeader();
-                                cout << "\nSorry wrong input, you will be\ndirected to akses gudang menu\n";
-                                border();
-                                system("pause");
-                                system("cls");
-                                gudangBack = true;
-                            }
-                        } while (backTambahGudangB == 1);
-
-                    }
-                    else if (pilihanGudangB == "3") {
-                        border();
-                        cout << "\n";
-                        aksesGudangHeader();
-                        string tujuanBarang;
-                        cout<<"masukkan tujuan barang: \n";
-                        border();
-                        cin.ignore();getline(cin, tujuanBarang);transform(tujuanBarang.begin(), tujuanBarang.end(), tujuanBarang.begin(), [](unsigned char c) {
-        					return tolower(c);
-    					});
-                        border();
-                        int size = sizeof(cabang.gudangB) / sizeof(cabang.gudangB[0]);
-						bool ketemu = false;
-						for (int i = 0; i < size; i++) {
-    						if (tujuanBarang == cabang.gudangB[i]) {
-        						ketemu = true;
-        						cout << "yeay";
-        						break;
-    						}
-						}
-
-						int sizeA = sizeof(cabang.gudangA) / sizeof(cabang.gudangA[0]);
-						bool ketemuA = false;
-						for (int i = 0; i < sizeA; i++) {
-    						if (tujuanBarang == cabang.gudangA[i]) {
-        						ketemuA = true;
-        						pindahkanBarang(gudangB, gudangA);
-        						break;
-    						}
-						}
-
-						int sizeC = sizeof(cabang.gudangC) / sizeof(cabang.gudangC[0]);
-						bool ketemuC = false;
-						for (int i = 0; i < sizeC; i++) {
-    						if (tujuanBarang == cabang.gudangC[i]) {
-        						ketemuC = true;
-        						pindahkanBarang(gudangB, gudangC);
-        						break;
-    						}
-						}
-
-						if (!ketemu && !ketemuA && !ketemuC) {
-    						cout << "Tujuan barang tidak valid\n";
-						}
-
-					cout << "\n";
-					border();
-					system("pause");
-					system("cls");
-					gudangBack = true;
-
-                    }
-                    else if (pilihanGudangB == "4") {
-                        system("cls");
-                        gudangBack = true;
-                    }
-                    else if (pilihanGudangB == "5") {
-                        system("cls");
-                        gudangBack = false;
-                        mainBack = true;
-                    }
-                    else {
-                        aksesGudangHeader();
-                        cout << "\nSorry wrong input, you will be\ndirected to akses gudang menu\n";
-                        border();
-                        system("pause");
-                        system("cls");
-                        gudangBack = true;
-                    }
-                }
-                else if (gudangChoice == "3") {
-                    border();
-                    cout << "\n";
-                    aksesGudangHeader();
-                    cout << "\n1. Cek Barang Gudang A\n2. Tambah Barang Masuk\n3. Tambah Barang Keluar\n4. Back to Akses Gudang\n5. Back to Main Menu\n";
-                    cout << "\n";
-                    border();
-                }
-                else if (gudangChoice == "4") {
-                    system("cls");
-                    gudangBack = false;
-                    mainBack = true;
-                }
-                else {
-                    aksesGudangHeader();
-                    cout << "\nSorry wrong input, you will be\ndirected to akses gudang menu\n";
-                    border();
-                    system("pause");
-                    system("cls");
-                    gudangBack = true;
-                }
-            } while (gudangBack == true);
-
-        }
-        else if (mainChoice == "2") {
-            menuChoiceHeader();
-            cout<<"Barang Masuk Gudang A \n";
-            tampilkanDaftarBarangMasuk(gudangA);
-            border();
-            cout<<"Barang Masuk Gudang B \n";
-            tampilkanDaftarBarangMasuk(gudangB);
-            border();
-            cout<<"Barang Masuk Gudang C \n";
-            tampilkanDaftarBarangMasuk(gudangC);
-            border();
-            system("pause");
-            system("cls");
-            mainBack = true;
-        }
+            if (pilCariGudang == "1"){
+            	temukanBarang(gudangA);
+            	system("pause");
+            	system("cls");
+            	mainBack = true;
+			} else if(pilCariGudang == "2"){
+				temukanBarang(gudangB);
+				system("pause");
+				system("cls");
+				mainBack = true;
+			} else if(pilCariGudang == "3"){
+				temukanBarang(gudangC);
+				system("pause");
+				system("cls");
+				mainBack = true;
+			} else {
+				mainHeader();
+            	cout << "\nSorry wrong input, you will be\ndirected to main menu\n";
+            	border();
+            	system("pause");
+            	system("cls");
+            	mainBack = true;
+			}
+            
+            
         }
         else if (mainChoice == "4") {
         	string infoGudang;
