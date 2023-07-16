@@ -31,7 +31,7 @@ struct Barang {
     long long kodeMsk;
     string nama;
     long long jumlah;
-    long long tglMsk;
+    string tglMsk;
     string bahan;
     string asal;
 };
@@ -58,24 +58,25 @@ void tambahBarang(vector<Barang>& gudang) {
     long long kodeMasukBarang;
     string namaBarang;
     long long jumlahBarang;
-   	int tglMskBarang;
+   	string tglMskBarang;
     string bahanBarang;
     string asalBarang;
 
     kodeMasukBarang = kode();
-    cout << "Masukkan nama barang: ";
+    //cout << "Masukkan nama barang: ";
    
-    cin.ignore();getline(cin, namaBarang); transform(namaBarang.begin(), namaBarang.end(), namaBarang.begin(), [](unsigned char c) {
-        return tolower(c);
-    });
-    
     cout << "Masukkan jumlah barang: ";
-    cin >> jumlahBarang; 
+	cin >> jumlahBarang;
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+	cout << "Masukkan nama barang: ";
+	getline(cin, namaBarang);
+
     
     tglMskBarang = getTime();
     
     cout << "Masukkan bahan barang: ";
-    cin.ignore();getline(cin, bahanBarang); transform(bahanBarang.begin(), bahanBarang.end(), bahanBarang.begin(), [](unsigned char c) {
+    getline(cin, bahanBarang); transform(bahanBarang.begin(), bahanBarang.end(), bahanBarang.begin(), [](unsigned char c) {
         return tolower(c);
     });
     cout << "Masukkan asal barang: ";
@@ -85,7 +86,8 @@ void tambahBarang(vector<Barang>& gudang) {
 	
     Barang barang{ kodeMasukBarang, namaBarang, jumlahBarang, tglMskBarang, bahanBarang, asalBarang };
     gudang.push_back(barang);
-
+    
+	border();
     cout << "Barang berhasil ditambahkan ke gudang.\n\n";
 }
 
@@ -157,7 +159,7 @@ void hapusBarang(vector<Barang>& gudang) {
     string namaBarang;
     long long jumlahBarang;
 
-    cout << "Masukkan nama barang yang ingin dihapus: ";
+    cout << "Masukkan nama barang yang ingin dipindah: ";
     cin.ignore();getline(cin, namaBarang); transform(namaBarang.begin(), namaBarang.end(), namaBarang.begin(), [](unsigned char c) {
         return tolower(c);
     });
@@ -212,18 +214,18 @@ void pindahkanBarang(vector<Barang>& gudangAsal, vector<Barang>& gudangTujuan) {
     string bahanBarang;
     
     cout << "Masukkan bahan barang: ";
-    cin >> bahanBarang;
-    /*cin.ignore();getline(cin, bahanBarang);transform(bahanBarang.begin(), bahanBarang.end(), bahanBarang.begin(), [](unsigned char c) {
+    //cin >> bahanBarang;
+    cin.ignore();getline(cin, bahanBarang);transform(bahanBarang.begin(), bahanBarang.end(), bahanBarang.begin(), [](unsigned char c) {
         return tolower(c);
-    });*/
+    });
     
     string asalBarang;
     
     cout << "Masukkan asal barang: ";
-    cin>>asalBarang;
-    /*getline(cin, asalBarang);transform(asalBarang.begin(), asalBarang.end(), asalBarang.begin(), [](unsigned char c) {
+    //cin>>asalBarang;
+    getline(cin, asalBarang);transform(asalBarang.begin(), asalBarang.end(), asalBarang.begin(), [](unsigned char c) {
         return tolower(c);
-    });*/
+    });
 
     bool barangDitemukan = false;
     for (auto it = gudangAsal.begin(); it != gudangAsal.end(); ++it) {
@@ -786,13 +788,16 @@ int main() {
         }
         else if (mainChoice == "2") {
             menuChoiceHeader();
-            cout<<"Barang Masuk Gudang A \n";
+            cout<<"\nBarang Masuk Gudang A \n\n";
+            border();
             tampilkanDaftarBarangMasuk(gudangA);
             border();
-            cout<<"Barang Masuk Gudang B \n";
+            cout<<"\nBarang Masuk Gudang B \n\n";
+            border();
             tampilkanDaftarBarangMasuk(gudangB);
             border();
-            cout<<"Barang Masuk Gudang C \n";
+            cout<<"\nBarang Masuk Gudang C \n\n";
+            border();
             tampilkanDaftarBarangMasuk(gudangC);
             border();
             system("pause");
